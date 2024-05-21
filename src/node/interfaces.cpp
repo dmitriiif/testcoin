@@ -1,4 +1,4 @@
-// Copyright (c) 2018-2022 The Bitcoin Core developers
+// Copyright (c) 2018-2022 The Testcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -54,7 +54,7 @@
 #include <validationinterface.h>
 #include <warnings.h>
 
-#include <config/bitcoin-config.h> // IWYU pragma: keep
+#include <config/testcoin-config.h> // IWYU pragma: keep
 
 #include <any>
 #include <memory>

@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2022 The Bitcoin Core developers
+// Copyright (c) 2011-2022 The Testcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,7 +10,7 @@
 #include <qt/platformstyle.h>
 #include <qt/walletmodel.h>
 
-#include <config/bitcoin-config.h> // IWYU pragma: keep
+#include <config/testcoin-config.h> // IWYU pragma: keep
 #include <key_io.h>
 #include <util/message.h> // For MessageSign(), MessageVerify()
 #include <wallet/wallet.h>

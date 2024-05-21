@@ -6,10 +6,10 @@ define(_CLIENT_VERSION_RC, 0)
 define(_CLIENT_VERSION_IS_RELEASE, false)
 define(_COPYRIGHT_YEAR, 2024)
 define(_COPYRIGHT_HOLDERS,[The %s developers])
-define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[Bitcoin Core]])
-AC_INIT([Bitcoin Core],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_BUILD)m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[https://github.com/bitcoin/bitcoin/issues],[bitcoin],[https://bitcoincore.org/])
+define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[Testcoin Core]])
+AC_INIT([Testcoin Core],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_BUILD)m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[https://github.com/testcoin/testcoin/issues],[testcoin],[https://testcoincore.org/])
 AC_CONFIG_SRCDIR([src/validation.cpp])
-AC_CONFIG_HEADERS([src/config/bitcoin-config.h])
+AC_CONFIG_HEADERS([src/config/testcoin-config.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([build-aux/m4])
 
@@ -29,17 +29,17 @@ if test -n "$PKG_CONFIG_LIBDIR"; then
   PKG_CONFIG="env PKG_CONFIG_LIBDIR=$PKG_CONFIG_LIBDIR $PKG_CONFIG"
 fi
 
-BITCOIN_DAEMON_NAME=bitcoind
-BITCOIN_GUI_NAME=bitcoin-qt
-BITCOIN_TEST_NAME=test_bitcoin
-BITCOIN_CLI_NAME=bitcoin-cli
-BITCOIN_TX_NAME=bitcoin-tx
-BITCOIN_UTIL_NAME=bitcoin-util
-BITCOIN_CHAINSTATE_NAME=bitcoin-chainstate
-BITCOIN_WALLET_TOOL_NAME=bitcoin-wallet
+BITCOIN_DAEMON_NAME=testcoind
+BITCOIN_GUI_NAME=testcoin-qt
+BITCOIN_TEST_NAME=test_testcoin
+BITCOIN_CLI_NAME=testcoin-cli
+BITCOIN_TX_NAME=testcoin-tx
+BITCOIN_UTIL_NAME=testcoin-util
+BITCOIN_CHAINSTATE_NAME=testcoin-chainstate
+BITCOIN_WALLET_TOOL_NAME=testcoin-wallet
 dnl Multi Process
-BITCOIN_MP_NODE_NAME=bitcoin-node
-BITCOIN_MP_GUI_NAME=bitcoin-gui
+BITCOIN_MP_NODE_NAME=testcoin-node
+BITCOIN_MP_GUI_NAME=testcoin-gui
 
 dnl Unless the user specified ARFLAGS, force it to be cr
 dnl This is also the default as-of libtool 2.4.7
@@ -224,7 +224,7 @@ AC_ARG_ENABLE([ccache],
 
 dnl Suppress warnings from external headers (e.g. Boost, Qt).
 dnl May be useful if warnings from external headers clutter the build output
-dnl too much, so that it becomes difficult to spot Bitcoin Core warnings
+dnl too much, so that it becomes difficult to spot Testcoin Core warnings
 dnl or if they cause a build failure with --enable-werror.
 AC_ARG_ENABLE([suppress-external-warnings],
   [AS_HELP_STRING([--disable-suppress-external-warnings],
@@ -270,7 +270,7 @@ AC_ARG_WITH([mpgen],
 
 AC_ARG_ENABLE([multiprocess],
   [AS_HELP_STRING([--enable-multiprocess],
-  [build multiprocess bitcoin-node, bitcoin-wallet, and bitcoin-gui executables in addition to monolithic bitcoind and bitcoin-qt executables. Requires libmultiprocess library. Experimental (default is no)])],
+  [build multiprocess testcoin-node, testcoin-wallet, and testcoin-gui executables in addition to monolithic testcoind and testcoin-qt executables. Requires libmultiprocess library. Experimental (default is no)])],
   [enable_multiprocess=$enableval],
   [enable_multiprocess=no])
 
@@ -591,51 +591,51 @@ CORE_CPPFLAGS="$CORE_CPPFLAGS -DHAVE_BUILD_INFO"
 
 AC_ARG_WITH([utils],
   [AS_HELP_STRING([--with-utils],
-  [build bitcoin-cli bitcoin-tx bitcoin-util bitcoin-wallet (default=yes)])],
-  [build_bitcoin_utils=$withval],
-  [build_bitcoin_utils=yes])
+  [build testcoin-cli testcoin-tx testcoin-util testcoin-wallet (default=yes)])],
+  [build_testcoin_utils=$withval],
+  [build_testcoin_utils=yes])
 
 AC_ARG_ENABLE([util-cli],
   [AS_HELP_STRING([--enable-util-cli],
-  [build bitcoin-cli])],
-  [build_bitcoin_cli=$enableval],
-  [build_bitcoin_cli=$build_bitcoin_utils])
+  [build testcoin-cli])],
+  [build_testcoin_cli=$enableval],
+  [build_testcoin_cli=$build_testcoin_utils])
 
 AC_ARG_ENABLE([util-tx],
   [AS_HELP_STRING([--enable-util-tx],
-  [build bitcoin-tx])],
-  [build_bitcoin_tx=$enableval],
-  [build_bitcoin_tx=$build_bitcoin_utils])
+  [build testcoin-tx])],
+  [build_testcoin_tx=$enableval],
+  [build_testcoin_tx=$build_testcoin_utils])
 
 AC_ARG_ENABLE([util-wallet],
   [AS_HELP_STRING([--enable-util-wallet],
-  [build bitcoin-wallet])],
-  [build_bitcoin_wallet=$enableval],
-  [build_bitcoin_wallet=$build_bitcoin_utils])
+  [build testcoin-wallet])],
+  [build_testcoin_wallet=$enableval],
+  [build_testcoin_wallet=$build_testcoin_utils])
 
 AC_ARG_ENABLE([util-util],
   [AS_HELP_STRING([--enable-util-util],
-  [build bitcoin-util])],
-  [build_bitcoin_util=$enableval],
-  [build_bitcoin_util=$build_bitcoin_utils])
+  [build testcoin-util])],
+  [build_testcoin_util=$enableval],
+  [build_testcoin_util=$build_testcoin_utils])
 
 AC_ARG_ENABLE([experimental-util-chainstate],
   [AS_HELP_STRING([--enable-experimental-util-chainstate],
-  [build experimental bitcoin-chainstate executable (default=no)])],
-  [build_bitcoin_chainstate=$enableval],
-  [build_bitcoin_chainstate=no])
+  [build experimental testcoin-chainstate executable (default=no)])],
+  [build_testcoin_chainstate=$enableval],
+  [build_testcoin_chainstate=no])
 
 AC_ARG_WITH([experimental-kernel-lib],
   [AS_HELP_STRING([--with-experimental-kernel-lib],
-  [build experimental bitcoinkernel library (default is to build if we're building the experimental build-chainstate executable)])],
+  [build experimental testcoinkernel library (default is to build if we're building the experimental build-chainstate executable)])],
   [build_experimental_kernel_lib=$withval],
   [build_experimental_kernel_lib=auto])
 
 AC_ARG_WITH([daemon],
   [AS_HELP_STRING([--with-daemon],
-  [build bitcoind daemon (default=yes)])],
-  [build_bitcoind=$withval],
-  [build_bitcoind=yes])
+  [build testcoind daemon (default=yes)])],
+  [build_testcoind=$withval],
+  [build_testcoind=yes])
 
 case $host in
   *mingw*)
@@ -858,7 +858,7 @@ AX_PTHREAD
 dnl Check if -latomic is required for <std::atomic>
 CHECK_ATOMIC
 
-dnl The following macro will add the necessary defines to bitcoin-config.h, but
+dnl The following macro will add the necessary defines to testcoin-config.h, but
 dnl they also need to be passed down to any subprojects. Pull the results out of
 dnl the cache and add them to CPPFLAGS.
 AC_SYS_LARGEFILE
@@ -961,7 +961,7 @@ AC_CHECK_DECLS([getifaddrs, freeifaddrs],[CHECK_SOCKET],,
     #include <ifaddrs.h>]
 )
 
-dnl These are used for daemonization in bitcoind
+dnl These are used for daemonization in testcoind
 AC_CHECK_DECLS([fork])
 AC_CHECK_DECLS([setsid])
 
@@ -1214,16 +1214,16 @@ AC_DEFUN([SUPPRESS_WARNINGS],
 dnl enable-fuzz should disable all other targets
 if test "$enable_fuzz" = "yes"; then
   AC_MSG_WARN([enable-fuzz will disable all other targets and force --enable-fuzz-binary=yes])
-  build_bitcoin_utils=no
-  build_bitcoin_cli=no
-  build_bitcoin_tx=no
-  build_bitcoin_util=no
-  build_bitcoin_chainstate=no
-  build_bitcoin_wallet=no
-  build_bitcoind=no
-  bitcoin_enable_qt=no
-  bitcoin_enable_qt_test=no
-  bitcoin_enable_qt_dbus=no
+  build_testcoin_utils=no
+  build_testcoin_cli=no
+  build_testcoin_tx=no
+  build_testcoin_util=no
+  build_testcoin_chainstate=no
+  build_testcoin_wallet=no
+  build_testcoind=no
+  testcoin_enable_qt=no
+  testcoin_enable_qt_test=no
+  testcoin_enable_qt_dbus=no
   use_bench=no
   use_tests=no
   use_external_signer=no
@@ -1236,7 +1236,7 @@ if test "$enable_fuzz" = "yes"; then
 else
   BITCOIN_QT_INIT
 
-  dnl sets $bitcoin_enable_qt, $bitcoin_enable_qt_test, $bitcoin_enable_qt_dbus
+  dnl sets $testcoin_enable_qt, $testcoin_enable_qt_test, $testcoin_enable_qt_dbus
   BITCOIN_QT_CONFIGURE([5.11.3])
 
   dnl Keep a copy of the original $QT_INCLUDES and use it when invoking qt's moc
@@ -1318,7 +1318,7 @@ if test "$use_usdt" != "no"; then
 fi
 AM_CONDITIONAL([ENABLE_USDT_TRACEPOINTS], [test "$use_usdt" = "yes"])
 
-if test "$build_bitcoind$bitcoin_enable_qt$use_bench$use_tests" = "nononono"; then
+if test "$build_testcoind$testcoin_enable_qt$use_bench$use_tests" = "nononono"; then
   use_upnp=no
   use_natpmp=no
   use_zmq=no
@@ -1368,7 +1368,7 @@ if test "$use_natpmp" != "no"; then
   CPPFLAGS="$TEMP_CPPFLAGS"
 fi
 
-if test "$build_bitcoin_wallet$build_bitcoin_cli$build_bitcoin_tx$build_bitcoin_util$build_bitcoind$bitcoin_enable_qt$use_tests$use_bench$enable_fuzz_binary" = "nonononononononono"; then
+if test "$build_testcoin_wallet$build_testcoin_cli$build_testcoin_tx$build_testcoin_util$build_testcoind$testcoin_enable_qt$use_tests$use_bench$enable_fuzz_binary" = "nonononononononono"; then
   use_boost=no
 else
   use_boost=yes
@@ -1425,7 +1425,7 @@ fi
 dnl libevent check
 
 use_libevent=no
-if test "$build_bitcoin_cli$build_bitcoind$bitcoin_enable_qt$enable_fuzz_binary$use_tests$use_bench" != "nononononono"; then
+if test "$build_testcoin_cli$build_testcoind$testcoin_enable_qt$enable_fuzz_binary$use_tests$use_bench" != "nononononono"; then
   PKG_CHECK_MODULES([EVENT], [libevent >= 2.1.8], [use_libevent=yes], [AC_MSG_ERROR([libevent version 2.1.8 or greater not found.])])
   if test "$TARGET_OS" != "windows"; then
     PKG_CHECK_MODULES([EVENT_PTHREADS], [libevent_pthreads >= 2.1.8], [], [AC_MSG_ERROR([libevent_pthreads version 2.1.8 or greater not found.])])
@@ -1522,36 +1522,36 @@ if test "$build_multiprocess" != "no"; then
   AC_SUBST(MPGEN_PREFIX)
 fi
 
-AC_MSG_CHECKING([whether to build bitcoind])
-AM_CONDITIONAL([BUILD_BITCOIND], [test $build_bitcoind = "yes"])
-AC_MSG_RESULT($build_bitcoind)
+AC_MSG_CHECKING([whether to build testcoind])
+AM_CONDITIONAL([BUILD_BITCOIND], [test $build_testcoind = "yes"])
+AC_MSG_RESULT($build_testcoind)
 
-AC_MSG_CHECKING([whether to build bitcoin-cli])
-AM_CONDITIONAL([BUILD_BITCOIN_CLI], [test $build_bitcoin_cli = "yes"])
-AC_MSG_RESULT($build_bitcoin_cli)
+AC_MSG_CHECKING([whether to build testcoin-cli])
+AM_CONDITIONAL([BUILD_BITCOIN_CLI], [test $build_testcoin_cli = "yes"])
+AC_MSG_RESULT($build_testcoin_cli)
 
-AC_MSG_CHECKING([whether to build bitcoin-tx])
-AM_CONDITIONAL([BUILD_BITCOIN_TX], [test $build_bitcoin_tx = "yes"])
-AC_MSG_RESULT($build_bitcoin_tx)
+AC_MSG_CHECKING([whether to build testcoin-tx])
+AM_CONDITIONAL([BUILD_BITCOIN_TX], [test $build_testcoin_tx = "yes"])
+AC_MSG_RESULT($build_testcoin_tx)
 
-AC_MSG_CHECKING([whether to build bitcoin-wallet])
-AM_CONDITIONAL([BUILD_BITCOIN_WALLET], [test $build_bitcoin_wallet = "yes"])
-AC_MSG_RESULT($build_bitcoin_wallet)
+AC_MSG_CHECKING([whether to build testcoin-wallet])
+AM_CONDITIONAL([BUILD_BITCOIN_WALLET], [test $build_testcoin_wallet = "yes"])
+AC_MSG_RESULT($build_testcoin_wallet)
 
-AC_MSG_CHECKING([whether to build bitcoin-util])
-AM_CONDITIONAL([BUILD_BITCOIN_UTIL], [test $build_bitcoin_util = "yes"])
-AC_MSG_RESULT($build_bitcoin_util)
+AC_MSG_CHECKING([whether to build testcoin-util])
+AM_CONDITIONAL([BUILD_BITCOIN_UTIL], [test $build_testcoin_util = "yes"])
+AC_MSG_RESULT($build_testcoin_util)
 
-AC_MSG_CHECKING([whether to build experimental bitcoin-chainstate])
-if test "$build_bitcoin_chainstate" = "yes"; then
+AC_MSG_CHECKING([whether to build experimental testcoin-chainstate])
+if test "$build_testcoin_chainstate" = "yes"; then
   if test "$build_experimental_kernel_lib" = "no"; then
-    AC_MSG_ERROR([experimental bitcoin-chainstate cannot be built without the experimental bitcoinkernel library. Use --with-experimental-kernel-lib]);
+    AC_MSG_ERROR([experimental testcoin-chainstate cannot be built without the experimental testcoinkernel library. Use --with-experimental-kernel-lib]);
   fi
 fi
-AM_CONDITIONAL([BUILD_BITCOIN_CHAINSTATE], [test $build_bitcoin_chainstate = "yes"])
-AC_MSG_RESULT($build_bitcoin_chainstate)
+AM_CONDITIONAL([BUILD_BITCOIN_CHAINSTATE], [test $build_testcoin_chainstate = "yes"])
+AC_MSG_RESULT($build_testcoin_chainstate)
 
-AM_CONDITIONAL([BUILD_BITCOIN_KERNEL_LIB], [test "$build_experimental_kernel_lib" != "no" && ( test "$build_experimental_kernel_lib" = "yes" || test "$build_bitcoin_chainstate" = "yes" )])
+AM_CONDITIONAL([BUILD_BITCOIN_KERNEL_LIB], [test "$build_experimental_kernel_lib" != "no" && ( test "$build_experimental_kernel_lib" = "yes" || test "$build_testcoin_chainstate" = "yes" )])
 
 AC_LANG_POP
 
@@ -1630,13 +1630,13 @@ fi
 
 dnl these are only used when qt is enabled
 BUILD_TEST_QT=""
-if test "$bitcoin_enable_qt" != "no"; then
+if test "$testcoin_enable_qt" != "no"; then
   dnl enable dbus support
   AC_MSG_CHECKING([whether to build GUI with support for D-Bus])
-  if test "$bitcoin_enable_qt_dbus" != "no"; then
+  if test "$testcoin_enable_qt_dbus" != "no"; then
     AC_DEFINE([USE_DBUS], [1], [Define if dbus support should be compiled in])
   fi
-  AC_MSG_RESULT([$bitcoin_enable_qt_dbus])
+  AC_MSG_RESULT([$testcoin_enable_qt_dbus])
 
   dnl enable qr support
   AC_MSG_CHECKING([whether to build GUI with support for QR codes])
@@ -1657,8 +1657,8 @@ if test "$bitcoin_enable_qt" != "no"; then
     AC_MSG_WARN([xgettext is required to update qt translations])
   fi
 
-  AC_MSG_CHECKING([whether to build test_bitcoin-qt])
-  if test "$use_gui_tests$bitcoin_enable_qt_test" = "yesyes"; then
+  AC_MSG_CHECKING([whether to build test_testcoin-qt])
+  if test "$use_gui_tests$testcoin_enable_qt_test" = "yesyes"; then
     AC_MSG_RESULT([yes])
     BUILD_TEST_QT="yes"
   else
@@ -1666,7 +1666,7 @@ if test "$bitcoin_enable_qt" != "no"; then
   fi
 fi
 
-AC_MSG_CHECKING([whether to build test_bitcoin])
+AC_MSG_CHECKING([whether to build test_testcoin])
 if test "$use_tests" = "yes"; then
   if test "$enable_fuzz" = "yes"; then
     AC_MSG_RESULT([no, because fuzzing is enabled])
@@ -1686,7 +1686,7 @@ else
   AC_MSG_RESULT([no])
 fi
 
-if test "$build_bitcoin_wallet$build_bitcoin_cli$build_bitcoin_tx$build_bitcoin_util$build_bitcoind$bitcoin_enable_qt$enable_fuzz_binary$use_bench$use_tests" = "nonononononononono"; then
+if test "$build_testcoin_wallet$build_testcoin_cli$build_testcoin_tx$build_testcoin_util$build_testcoind$testcoin_enable_qt$enable_fuzz_binary$use_bench$use_tests" = "nonononononononono"; then
   AC_MSG_ERROR([No targets! Please specify at least one of: --with-utils --with-daemon --with-gui --enable-fuzz(-binary) --enable-bench or --enable-tests])
 fi
 
@@ -1700,7 +1700,7 @@ AM_CONDITIONAL([USE_BDB], [test "$use_bdb" = "yes"])
 AM_CONDITIONAL([ENABLE_TESTS], [test "$BUILD_TEST" = "yes"])
 AM_CONDITIONAL([ENABLE_FUZZ], [test "$enable_fuzz" = "yes"])
 AM_CONDITIONAL([ENABLE_FUZZ_BINARY], [test "$enable_fuzz_binary" = "yes"])
-AM_CONDITIONAL([ENABLE_QT], [test "$bitcoin_enable_qt" = "yes"])
+AM_CONDITIONAL([ENABLE_QT], [test "$testcoin_enable_qt" = "yes"])
 AM_CONDITIONAL([ENABLE_QT_TESTS], [test "$BUILD_TEST_QT" = "yes"])
 AM_CONDITIONAL([ENABLE_BENCH], [test "$use_bench" = "yes"])
 AM_CONDITIONAL([USE_QRCODE], [test "$use_qr" = "yes"])
@@ -1794,7 +1794,7 @@ AC_SUBST(HAVE_EVHTTP_CONNECTION_GET_PEER_CONST_CHAR)
 AC_CONFIG_FILES([Makefile src/Makefile doc/man/Makefile share/setup.nsi share/qt/Info.plist test/config.ini])
 AC_CONFIG_FILES([contrib/devtools/split-debug.sh],[chmod +x contrib/devtools/split-debug.sh])
 AM_COND_IF([HAVE_DOXYGEN], [AC_CONFIG_FILES([doc/Doxyfile])])
-AC_CONFIG_LINKS([contrib/devtools/iwyu/bitcoin.core.imp:contrib/devtools/iwyu/bitcoin.core.imp])
+AC_CONFIG_LINKS([contrib/devtools/iwyu/testcoin.core.imp:contrib/devtools/iwyu/testcoin.core.imp])
 AC_CONFIG_LINKS([contrib/filter-lcov.py:contrib/filter-lcov.py])
 AC_CONFIG_LINKS([src/.bear-tidy-config:src/.bear-tidy-config])
 AC_CONFIG_LINKS([src/.clang-tidy:src/.clang-tidy])
@@ -1849,15 +1849,15 @@ if test "$enable_wallet" != "no"; then
     echo "    with sqlite   = $use_sqlite"
     echo "    with bdb      = $use_bdb"
 fi
-echo "  with gui / qt   = $bitcoin_enable_qt"
-if test $bitcoin_enable_qt != "no"; then
+echo "  with gui / qt   = $testcoin_enable_qt"
+if test $testcoin_enable_qt != "no"; then
     echo "    with qr       = $use_qr"
 fi
 echo "  with zmq        = $use_zmq"
 if test $enable_fuzz = "no"; then
     echo "  with test       = $use_tests"
 else
-    echo "  with test       = not building test_bitcoin because fuzzing is enabled"
+    echo "  with test       = not building test_testcoin because fuzzing is enabled"
 fi
 echo "  with fuzz binary = $enable_fuzz_binary"
 echo "  with bench      = $use_bench"

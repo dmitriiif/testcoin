@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# Copyright (c) 2021-present The Bitcoin Core developers
+# Copyright (c) 2021-present The Testcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test for assumeutxo, a means of quickly bootstrapping a node using
 a serialized version of the UTXO set at a certain height, which corresponds
-to a hash that has been compiled into bitcoind.
+to a hash that has been compiled into testcoind.
 
 The assumeutxo value generated and used here is committed to in
 `CRegTestParams::m_assumeutxo_data` in `src/kernel/chainparams.cpp`.
@@ -31,7 +31,7 @@ from shutil import rmtree
 
 from dataclasses import dataclass
 from test_framework.messages import tx_from_hex
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import TestcoinTestFramework
 from test_framework.util import (
     assert_equal,
     assert_raises_rpc_error,
@@ -47,7 +47,7 @@ FINAL_HEIGHT = 399
 COMPLETE_IDX = {'synced': True, 'best_block_height': FINAL_HEIGHT}
 
 
-class AssumeutxoTest(BitcoinTestFramework):
+class AssumeutxoTest(TestcoinTestFramework):
 
     def set_test_params(self):
         """Use the pregenerated, deterministic chain up to height 199."""
@@ -143,7 +143,7 @@ class AssumeutxoTest(BitcoinTestFramework):
         self.start_node(0)
 
     def test_invalid_mempool_state(self, dump_output_path):
-        self.log.info("Test bitcoind should fail when mempool not empty.")
+        self.log.info("Test testcoind should fail when mempool not empty.")
         node=self.nodes[2]
         tx = MiniWallet(node).send_self_transfer(from_node=node)
 
@@ -156,7 +156,7 @@ class AssumeutxoTest(BitcoinTestFramework):
         self.restart_node(2, extra_args=self.extra_args[2])
 
     def test_invalid_file_path(self):
-        self.log.info("Test bitcoind should fail when file path is invalid.")
+        self.log.info("Test testcoind should fail when file path is invalid.")
         node = self.nodes[0]
         path = node.datadir_path / node.chain / "invalid" / "path"
         assert_raises_rpc_error(-8, "Couldn't open file {} for reading.".format(path), node.loadtxoutset, path)

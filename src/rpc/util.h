@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2022 The Bitcoin Core developers
+// Copyright (c) 2017-2022 The Testcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -104,8 +104,8 @@ std::vector<unsigned char> ParseHexO(const UniValue& o, std::string_view strKey)
  */
 CAmount AmountFromValue(const UniValue& value, int decimals = 8);
 /**
- * Parse a json number or string, denoting BTC/kvB, into a CFeeRate (sat/kvB).
- * Reject negative values or rates larger than 1BTC/kvB.
+ * Parse a json number or string, denoting TTC/kvB, into a CFeeRate (sat/kvB).
+ * Reject negative values or rates larger than 1TTC/kvB.
  */
 CFeeRate ParseFeeRate(const UniValue& json);
 

@@ -94,14 +94,14 @@ chain for " target " development."))
 (define base-gcc gcc-12)
 (define base-linux-kernel-headers linux-libre-headers-6.1)
 
-(define* (make-bitcoin-cross-toolchain target
+(define* (make-testcoin-cross-toolchain target
                                        #:key
                                        (base-gcc-for-libc linux-base-gcc)
                                        (base-kernel-headers base-linux-kernel-headers)
                                        (base-libc glibc-2.27)
                                        (base-gcc linux-base-gcc))
   "Convenience wrapper around MAKE-CROSS-TOOLCHAIN with default values
-desirable for building Bitcoin Core release binaries."
+desirable for building Testcoin Core release binaries."
   (make-cross-toolchain target
                         base-gcc-for-libc
                         base-kernel-headers
@@ -146,7 +146,7 @@ chain for " target " development."))
 ;; While LIEF is packaged in Guix, we maintain our own package,
 ;; to simplify building, and more easily apply updates.
 ;; Moreover, the Guix's package uses cmake, which caused build
-;; failure; see https://github.com/bitcoin/bitcoin/pull/27296.
+;; failure; see https://github.com/testcoin/testcoin/pull/27296.
 (define-public python-lief
   (package
     (name "python-lief")
@@ -528,7 +528,7 @@ inspecting signatures in Mach-O binaries.")
            (list ;; Native GCC 12 toolchain
                  gcc-toolchain-12
                  (list gcc-toolchain-12 "static")
-                 (make-bitcoin-cross-toolchain target)))
+                 (make-testcoin-cross-toolchain target)))
           ((string-contains target "darwin")
            (list ;; Native GCC 11 toolchain
                  gcc-toolchain-11
